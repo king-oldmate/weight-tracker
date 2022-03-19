@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weight Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Come on fatty</h1>
+
+
+
+    <form action="/logWeight" method="POST">
+        <input type="number" required step="0.01" placeholder="How much did you weigh today?" name="weightInput" min="0" id="weightInputCSS">
+        <input type="submit" value="WEIGH IN">
+    </form>
+
+    <ul class="weightItems">
+        <% for (let i=0; i < items.length; i++) {%>
+            <li class="item">
+                date logged:
+                <span class="date"><%= items[i]._id %></span>
+                weight:
+                <span class="weight"><%= items[i].weight %></span>
+                <!-- <span class="edit">✏️</span> -->
+                <span class="delete">🗑️</span>
+            </li>
+        <% } %>
+
+    </ul>
+    
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+
+<script src="js/main.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const weights = document.querySelectorAll('.weight') //returns an array of the displayed weight records
+    const dates = document.querySelectorAll('.date') //returns an array of the displayed date records
+    let labels = [] //empty array, will have the dates pushed to it later
+
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Daily Weight',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [],
+        }]
+    };
+
+    const dataY = data.datasets[0].data
+
+
+    for (let i = 0; i < weights.length; i++){
+        labels.push(dates[i].textContent)
+        dataY.push(weights[i].textContent)
+        //console.log(weights[i].textContent, dates[i].textContent)
+    }
+
+const config = {
+  type: 'line',
+  data: data,
+  options: {}
+};
+const myChart = new Chart(
+  document.getElementById('myChart'),
+  config
+);
+ 
+    </script>
+</body>
+</html>
