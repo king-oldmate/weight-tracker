@@ -10,15 +10,15 @@ Array.from(deleteBtn).forEach((element) => {
 // })
 
 async function deleteItem(){
-    const itemText = this.parentNode.childNodes[3].innerText
-    console.log(itemText)
+    const dateRecord = this.parentNode.childNodes[1].innerText //gets the date from the DOM
+    console.log(dateRecord)
     if (confirm('Are you sure you want to delete this entry?')){
         try{
             const response = await fetch('deleteItem', {
                 method: 'delete',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
-                  'itemFromJS': itemText
+                  'dateFromJS': dateRecord
                 })
               })
             const data = await response.json()

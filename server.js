@@ -40,7 +40,8 @@ app.post('/logWeight', (request, response) => {
 })
 
 app.delete('/deleteItem', (request, response) => {
-    db.collection('weight').deleteOne({thing: request.body.itemFromJs})
+    db.collection('weight') //goes to the db collection named as such
+        .deleteOne({_id: request.body.dateFromJS}) //deletes one item based upon the _id: taken from the dateFromJS JSON from /js/main.js
     .then(result => {
         console.log('Item deleted')
         response.json('Item deleted')
