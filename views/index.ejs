@@ -8,15 +8,23 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Don't let life weigh you down</h1>
+    <main>
+        <h1>Don't let life weigh you down</h1>
 
+    <div class="form">
+        <form action="/logWeight" method="POST">
+            <input type="number" required step="0.01" placeholder="How much did you weigh today?" name="weightInput" min="0" id="weightInputCSS">
+            <br>
+            <input type="submit" value="WEIGH IN">
+        </form>
+    </div>
+    
 
+    <div class="chart">
+        <canvas id="myChart"></canvas>
+    </div>
 
-    <form action="/logWeight" method="POST">
-        <input type="number" required step="0.01" placeholder="How much did you weigh today?" name="weightInput" min="0" id="weightInputCSS">
-        <input type="submit" value="WEIGH IN">
-    </form>
-
+    <h2>History</h2>
     <ul class="weightItems">
         <% for (let i=0; i < items.length; i++) {%>
             <li class="item">
@@ -30,10 +38,8 @@
         <% } %>
 
     </ul>
+    </main>
     
-    <div>
-        <canvas id="myChart"></canvas>
-    </div>
 
 <script src="js/main.js"></script>
 
@@ -66,7 +72,7 @@
 const config = {
   type: 'line',
   data: data,
-  options: {}
+  options: {},
 };
 const myChart = new Chart(
   document.getElementById('myChart'),
